@@ -1,7 +1,9 @@
 import React, { useState } from 'react'
 import { motion } from 'framer-motion'
-import { HiMail, HiPhone } from 'react-icons/hi'
-import { FaGithub as FaGithubIcon } from 'react-icons/fa'
+import { Helmet } from 'react-helmet-async'
+import Navbar from './Navbar'
+import Footer from './Footer'
+import ScrollToTop from './ScrollToTop'
 import emailjs from 'emailjs-com'
 
 const Contact = () => {
@@ -13,11 +15,18 @@ const Contact = () => {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitStatus, setSubmitStatus] = useState(null)
 
+  const EMAILJS_SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID || 'service_mo871sa'
+  const EMAILJS_TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID || 'template_htxe1o7'
+  const EMAILJS_PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY || 's2tkCARAZqozP8s4J'
+
   const handleChange = (e) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
     })
+    if (submitStatus === 'error') {
+      setSubmitStatus(null)
+    }
   }
 
   const handleSubmit = async (e) => {
@@ -25,203 +34,188 @@ const Contact = () => {
     setIsSubmitting(true)
     setSubmitStatus(null)
 
+    if (
+      EMAILJS_SERVICE_ID === 'YOUR_SERVICE_ID' ||
+      EMAILJS_TEMPLATE_ID === 'YOUR_TEMPLATE_ID' ||
+      EMAILJS_PUBLIC_KEY === 'YOUR_PUBLIC_KEY'
+    ) {
+      console.error('EmailJS credentials not configured. Please set up your environment variables.')
+      setSubmitStatus('error')
+      setIsSubmitting(false)
+      return
+    }
+
     try {
-      // You'll need to set up EmailJS service and get your credentials
-      // Replace these with your actual EmailJS credentials
-      const serviceId = 'YOUR_SERVICE_ID'
-      const templateId = 'YOUR_TEMPLATE_ID'
-      const userId = 'YOUR_USER_ID'
+      const now = new Date()
+      const timeString = now.toLocaleString('fr-FR', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit',
+        timeZone: 'Africa/Casablanca',
+      })
 
-      await emailjs.send(serviceId, templateId, {
-        from_name: formData.name,
-        from_email: formData.email,
-        message: formData.message,
-        to_name: 'Ghaloua Saad',
-      }, userId)
+      const result = await emailjs.send(
+        EMAILJS_SERVICE_ID,
+        EMAILJS_TEMPLATE_ID,
+        {
+          name: formData.name,
+          email: formData.email,
+          message: formData.message,
+          time: timeString,
+          reply_to: formData.email,
+        },
+        EMAILJS_PUBLIC_KEY
+      )
 
-      setSubmitStatus('success')
-      setFormData({ name: '', email: '', message: '' })
+      if (result.status === 200) {
+        setSubmitStatus('success')
+        setFormData({ name: '', email: '', message: '' })
+        
+        setTimeout(() => {
+          setSubmitStatus(null)
+        }, 5000)
+      } else {
+        throw new Error('Failed to send email')
+      }
     } catch (error) {
       console.error('EmailJS Error:', error)
       setSubmitStatus('error')
+      
+      setTimeout(() => {
+        setSubmitStatus(null)
+      }, 5000)
     } finally {
       setIsSubmitting(false)
     }
   }
 
-  const contactInfo = [
-    {
-      icon: HiMail,
-      label: 'Email',
-      value: 'saadghaloua63@gmail.com',
-      link: 'mailto:saadghaloua63@gmail.com',
-    },
-    {
-      icon: HiPhone,
-      label: 'Téléphone',
-      value: '+212 680-751850',
-      link: 'tel:+212680751850',
-    },
-    {
-      icon: FaGithubIcon,
-      label: 'GitHub',
-      value: 'SaadGHALOUA',
-      link: 'https://github.com/SaadGHALOUA',
-    },
-  ]
-
   return (
-    <section
-      id="contact"
-      className="py-20 px-4 sm:px-6 lg:px-8 bg-white dark:bg-gray-900"
-    >
-      <div className="max-w-7xl mx-auto">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+    <>
+      <Helmet>
+        <html lang="fr" />
+      </Helmet>
+      
+      <div className="min-h-screen bg-background text-main transition-colors duration-300">
+        <Navbar />
+        
+        <section
+          id="contact"
+          className="py-20 px-4 sm:px-6 lg:px-8 bg-section min-h-screen"
         >
-          <h2 className="text-4xl md:text-5xl font-title font-bold text-primary dark:text-white mb-4">
-            Contactez-moi
-          </h2>
-          <div className="w-24 h-1 bg-secondary dark:bg-orange-400 mx-auto"></div>
-          <p className="text-gray-600 dark:text-gray-300 mt-4 max-w-2xl mx-auto">
-            N'hésitez pas à me contacter pour toute question ou opportunité de
-            collaboration.
-          </p>
-        </motion.div>
+          <div className="max-w-7xl mx-auto">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className="text-center mb-16"
+            >
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-title font-bold text-accent-beige mb-4">
+                Contactez-moi
+              </h2>
+              <div className="w-24 h-1 bg-secondary-blue mx-auto"></div>
+              <p className="text-main text-sm sm:text-base mt-4 max-w-2xl mx-auto px-2">
+                N'hésitez pas à me contacter pour toute question ou opportunité de
+                collaboration.
+              </p>
+            </motion.div>
 
-        <div className="grid md:grid-cols-2 gap-12">
-          {/* Contact Info */}
-          <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-          >
-            <h3 className="text-2xl font-title font-semibold text-primary dark:text-white mb-6">
-              Informations de contact
-            </h3>
-            <div className="space-y-4">
-              {contactInfo.map((info, index) => {
-                const Icon = info.icon
-                return (
-                  <motion.a
-                    key={index}
-                    href={info.link}
-                    target={info.link.startsWith('http') ? '_blank' : undefined}
-                    rel={info.link.startsWith('http') ? 'noopener noreferrer' : undefined}
-                    className="flex items-center gap-4 p-4 bg-gray-50 dark:bg-gray-800 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors group"
-                    whileHover={{ x: 5 }}
-                  >
-                    <div className="flex-shrink-0 w-12 h-12 bg-secondary dark:bg-orange-400 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform">
-                      <Icon className="h-6 w-6 text-white" />
-                    </div>
-                    <div>
-                      <p className="text-sm text-gray-500 dark:text-gray-400">
-                        {info.label}
-                      </p>
-                      <p className="text-text dark:text-gray-200 font-medium">
-                        {info.value}
-                      </p>
-                    </div>
-                  </motion.a>
-                )
-              })}
-            </div>
-          </motion.div>
-
-          {/* Contact Form */}
-          <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-          >
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <div>
-                <label
-                  htmlFor="name"
-                  className="block text-sm font-medium text-text dark:text-gray-300 mb-2"
-                >
-                  Nom
-                </label>
-                <input
-                  type="text"
-                  id="name"
-                  name="name"
-                  value={formData.name}
-                  onChange={handleChange}
-                  required
-                  className="w-full px-4 py-3 bg-gray-50 dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-secondary dark:focus:ring-orange-400 focus:border-transparent outline-none transition-colors text-text dark:text-gray-200"
-                  placeholder="Votre nom"
-                />
-              </div>
-
-              <div>
-                <label
-                  htmlFor="email"
-                  className="block text-sm font-medium text-text dark:text-gray-300 mb-2"
-                >
-                  Email
-                </label>
-                <input
-                  type="email"
-                  id="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  required
-                  className="w-full px-4 py-3 bg-gray-50 dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-secondary dark:focus:ring-orange-400 focus:border-transparent outline-none transition-colors text-text dark:text-gray-200"
-                  placeholder="votre.email@example.com"
-                />
-              </div>
-
-              <div>
-                <label
-                  htmlFor="message"
-                  className="block text-sm font-medium text-text dark:text-gray-300 mb-2"
-                >
-                  Message
-                </label>
-                <textarea
-                  id="message"
-                  name="message"
-                  value={formData.message}
-                  onChange={handleChange}
-                  required
-                  rows="6"
-                  className="w-full px-4 py-3 bg-gray-50 dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-secondary dark:focus:ring-orange-400 focus:border-transparent outline-none transition-colors text-text dark:text-gray-200 resize-none"
-                  placeholder="Votre message..."
-                ></textarea>
-              </div>
-
-              {submitStatus === 'success' && (
-                <div className="p-4 bg-green-100 dark:bg-green-900/30 border border-green-400 dark:border-green-600 rounded-lg text-green-700 dark:text-green-400">
-                  Message envoyé avec succès !
-                </div>
-              )}
-
-              {submitStatus === 'error' && (
-                <div className="p-4 bg-red-100 dark:bg-red-900/30 border border-red-400 dark:border-red-600 rounded-lg text-red-700 dark:text-red-400">
-                  Erreur lors de l'envoi. Veuillez réessayer ou me contacter directement.
-                </div>
-              )}
-
-              <button
-                type="submit"
-                disabled={isSubmitting}
-                className="w-full px-8 py-3 bg-secondary hover:bg-orange-600 text-white font-medium rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 disabled:opacity-50 disabled:cursor-not-allowed"
+            <div className="max-w-2xl mx-auto">
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
               >
-                {isSubmitting ? 'Envoi en cours...' : 'Envoyer le message'}
-              </button>
-            </form>
-          </motion.div>
-        </div>
+                <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
+                  <div>
+                    <label
+                      htmlFor="name"
+                      className="block text-sm font-medium text-accent-beige mb-2"
+                    >
+                      Nom
+                    </label>
+                    <input
+                      type="text"
+                      id="name"
+                      name="name"
+                      value={formData.name}
+                      onChange={handleChange}
+                      required
+                      className="w-full px-3 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-base bg-white border border-accent-beige rounded-lg focus:ring-2 focus:ring-secondary-blue focus:border-secondary-blue outline-none transition-colors text-gray-900 placeholder:text-gray-500"
+                      placeholder="Votre nom"
+                    />
+                  </div>
+
+                  <div>
+                    <label
+                      htmlFor="email"
+                      className="block text-sm font-medium text-accent-beige mb-2"
+                    >
+                      Email
+                    </label>
+                    <input
+                      type="email"
+                      id="email"
+                      name="email"
+                      value={formData.email}
+                      onChange={handleChange}
+                      required
+                      className="w-full px-3 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-base bg-white border border-accent-beige rounded-lg focus:ring-2 focus:ring-secondary-blue focus:border-secondary-blue outline-none transition-colors text-gray-900 placeholder:text-gray-500"
+                      placeholder="votre.email@example.com"
+                    />
+                  </div>
+
+                  <div>
+                    <label
+                      htmlFor="message"
+                      className="block text-sm font-medium text-accent-beige mb-2"
+                    >
+                      Message
+                    </label>
+                    <textarea
+                      id="message"
+                      name="message"
+                      value={formData.message}
+                      onChange={handleChange}
+                      required
+                      rows="5"
+                      className="w-full px-3 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-base bg-white border border-accent-beige rounded-lg focus:ring-2 focus:ring-secondary-blue focus:border-secondary-blue outline-none transition-colors text-gray-900 resize-none placeholder:text-gray-500"
+                      placeholder="Votre message..."
+                    ></textarea>
+                  </div>
+
+                  {submitStatus === 'success' && (
+                    <div className="p-4 bg-secondary-green/20 border border-secondary-green rounded-lg text-secondary-green">
+                      Message envoyé avec succès !
+                    </div>
+                  )}
+
+                  {submitStatus === 'error' && (
+                    <div className="p-4 bg-red-500/20 border border-red-500 rounded-lg text-red-400">
+                      Erreur lors de l'envoi. Veuillez réessayer ou me contacter directement.
+                    </div>
+                  )}
+
+                  <button
+                    type="submit"
+                    disabled={isSubmitting}
+                    className="w-full px-6 sm:px-8 py-2.5 sm:py-3 text-sm sm:text-base bg-primary hover:bg-primary-light text-main font-medium rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
+                    {isSubmitting ? 'Envoi en cours...' : 'Envoyer le message'}
+                  </button>
+                </form>
+              </motion.div>
+            </div>
+          </div>
+        </section>
+        
+        <Footer />
+        <ScrollToTop />
       </div>
-    </section>
+    </>
   )
 }
 

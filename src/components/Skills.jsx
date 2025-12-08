@@ -14,6 +14,7 @@ import {
   FaCog,
 } from 'react-icons/fa'
 
+
 const Skills = () => {
   const skillCategories = [
     {
@@ -50,7 +51,7 @@ const Skills = () => {
       skills: [
         { name: 'Organisation', icon: FaCog, level: 90 },
         { name: 'Travail en équipe', icon: FaUsers, level: 85 },
-        { name: 'Esprit d\'analyse', icon: FaLightbulb, level: 88 },
+        { name: "Esprit d'analyse", icon: FaLightbulb, level: 88 },
         { name: 'Résolution de problèmes', icon: FaCog, level: 87 },
       ],
     },
@@ -59,9 +60,27 @@ const Skills = () => {
   return (
     <section
       id="skills"
-      className="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50 dark:bg-primary"
-    >
-      <div className="max-w-7xl mx-auto">
+      className="py-20 px-4 sm:px-6 lg:px-8 relative overflow-hidden"
+      style={{
+        backgroundImage: `url('/backgroundcompetence.jpg')`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat',
+      }}
+      >
+      <div
+        style={{
+          position: 'absolute',
+          inset: 0,
+          width: '100%',
+          height: '100%',
+          background: 'rgba(12, 15, 26, 0.78)',
+          backdropFilter: 'blur(2px)',
+          zIndex: 0,
+          pointerEvents: 'none',
+        }}
+      />
+      <div className="max-w-7xl mx-auto relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -69,10 +88,10 @@ const Skills = () => {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl md:text-5xl font-title font-bold text-primary dark:text-white mb-4">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-title font-bold text-accent-beige mb-4">
             Compétences
           </h2>
-          <div className="w-24 h-1 bg-secondary dark:bg-orange-400 mx-auto"></div>
+          <div className="w-24 h-1 bg-secondary-blue mx-auto"></div>
         </motion.div>
 
         <div className="grid md:grid-cols-2 gap-8">
@@ -85,13 +104,13 @@ const Skills = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: categoryIndex * 0.1 }}
-                className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg hover:shadow-xl transition-shadow"
+                className="bg-section border border-accent-beige rounded-xl p-4 sm:p-6 shadow-lg hover:shadow-xl transition-shadow"
               >
-                <div className="flex items-center gap-3 mb-6">
-                  <div className="w-12 h-12 bg-secondary dark:bg-orange-400 rounded-lg flex items-center justify-center">
-                    <CategoryIcon className="h-6 w-6 text-white" />
+                <div className="flex items-center gap-2 sm:gap-3 mb-4 sm:mb-6">
+                  <div className="w-10 h-10 sm:w-12 sm:h-12 bg-secondary-blue rounded-lg flex items-center justify-center flex-shrink-0">
+                    <CategoryIcon className="h-5 w-5 sm:h-6 sm:w-6 text-main" />
                   </div>
-                  <h3 className="text-2xl font-title font-semibold text-primary dark:text-white">
+                  <h3 className="text-xl sm:text-2xl font-title font-semibold text-accent-beige">
                     {category.title}
                   </h3>
                 </div>
@@ -100,26 +119,26 @@ const Skills = () => {
                     const SkillIcon = skill.icon
                     return (
                       <div key={skillIndex}>
-                        <div className="flex items-center justify-between mb-2">
-                          <div className="flex items-center gap-2">
+                        <div className="flex items-center justify-between mb-2 gap-2">
+                          <div className="flex items-center gap-2 min-w-0 flex-1">
                             {SkillIcon && (
-                              <SkillIcon className="h-5 w-5 text-secondary dark:text-orange-400" />
+                              <SkillIcon className="h-4 w-4 sm:h-5 sm:w-5 text-secondary-blue flex-shrink-0" />
                             )}
-                            <span className="text-text dark:text-gray-200 font-medium">
+                            <span className="text-main text-sm sm:text-base font-medium truncate">
                               {skill.name}
                             </span>
                           </div>
-                          <span className="text-sm text-gray-500 dark:text-gray-400">
+                          <span className="text-xs sm:text-sm text-accent-beige flex-shrink-0">
                             {skill.level}%
                           </span>
                         </div>
-                        <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2.5">
+                        <div className="w-full bg-background rounded-full h-2.5">
                           <motion.div
                             initial={{ width: 0 }}
                             whileInView={{ width: `${skill.level}%` }}
                             viewport={{ once: true }}
                             transition={{ duration: 1, delay: skillIndex * 0.1 }}
-                            className="bg-secondary dark:bg-orange-400 h-2.5 rounded-full"
+                            className="bg-secondary-blue h-2.5 rounded-full"
                           ></motion.div>
                         </div>
                       </div>

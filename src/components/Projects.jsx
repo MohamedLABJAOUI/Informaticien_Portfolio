@@ -1,50 +1,26 @@
 import React from 'react'
 import { motion } from 'framer-motion'
 import { FaGithub, FaExternalLinkAlt } from 'react-icons/fa'
-import { HiCode } from 'react-icons/hi'
 
 const Projects = () => {
   const projects = [
     {
-      title: 'Centre de Formation – Site vitrine',
+      title: 'Mini-SiteWeb eCOM',
       description:
-        'Site vitrine simple de 3 pages pour un centre de formation, développé avec HTML et CSS. Design moderne et responsive.',
-      technologies: ['HTML', 'CSS'],
-      image: '/project1.jpg', // Placeholder
-      github: 'https://github.com/SaadGHALOUA',
-    },
-    {
-      title: 'Mini CRM Client (LocalStorage)',
-      description:
-        'Application CRUD de gestion de clients utilisant le LocalStorage du navigateur. Interface intuitive pour créer, lire, mettre à jour et supprimer des clients.',
-      technologies: ['JavaScript', 'HTML', 'CSS', 'LocalStorage'],
-      image: '/project2.jpg', // Placeholder
-      github: 'https://github.com/SaadGHALOUA',
-    },
-    {
-      title: 'Dashboard Réseau (Mockup)',
-      description:
-        'Interface de tableau de bord réseau avec des cartes affichant le statut du réseau. Design moderne et informatif.',
-      technologies: ['HTML', 'CSS', 'JavaScript'],
-      image: '/project3.jpg', // Placeholder
-      github: 'https://github.com/SaadGHALOUA',
-    },
-    {
-      title: 'Générateur de Facture',
-      description:
-        'Application pour générer et exporter des factures. Aperçu en temps réel et fonctionnalité d\'export en PDF.',
-      technologies: ['JavaScript', 'HTML', 'CSS'],
-      image: '/project4.jpg', // Placeholder
-      github: 'https://github.com/SaadGHALOUA',
+        'Plateforme e-commerce (PHP/HTML/CSS/JS) avec catalogue, gestion utilisateurs et interface admin sécurisée.',
+      technologies: ['PHP', 'MySQL', 'HTML', 'CSS', 'JavaScript'],
+      image: '/visionaryminds.png',
+      github: 'https://github.com/SaadGHALOUA/Mini-SiteWeb-eCOM',
+      demo: 'https://visonnary-minds.vercel.app/',
     },
   ]
 
   return (
     <section
       id="projects"
-      className="py-20 px-4 sm:px-6 lg:px-8 bg-white dark:bg-gray-900"
+      className="py-20 px-4 sm:px-6 lg:px-8 bg-section relative overflow-hidden"
     >
-      <div className="max-w-7xl mx-auto">
+      <div className="max-w-7xl mx-auto relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -52,13 +28,13 @@ const Projects = () => {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl md:text-5xl font-title font-bold text-primary dark:text-white mb-4">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-title font-bold text-accent-beige mb-4">
             Projets
           </h2>
-          <div className="w-24 h-1 bg-secondary dark:bg-orange-400 mx-auto"></div>
+          <div className="w-24 h-1 bg-secondary-blue mx-auto"></div>
         </motion.div>
 
-        <div className="grid md:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
           {projects.map((project, index) => (
             <motion.div
               key={index}
@@ -66,55 +42,55 @@ const Projects = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow group"
+              className="bg-section border border-accent-beige rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow group"
             >
-              {/* Project Image */}
-              <div className="relative h-48 bg-gradient-to-br from-secondary to-orange-600 overflow-hidden">
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <HiCode className="h-24 w-24 text-white opacity-20" />
-                </div>
-                <div className="absolute inset-0 bg-black/20 group-hover:bg-black/30 transition-colors"></div>
+              <div className="relative h-52 overflow-hidden bg-background">
+                <img
+                  src={project.image}
+                  alt={project.title}
+                  className="w-full h-full object-cover"
+                />
+                <div className="absolute inset-0 bg-black/25 group-hover:bg-black/35 transition-colors"></div>
               </div>
 
-              {/* Project Content */}
-              <div className="p-6">
-                <h3 className="text-2xl font-title font-semibold text-primary dark:text-white mb-3">
+              <div className="p-4 sm:p-6">
+                <h3 className="text-xl sm:text-2xl font-title font-semibold text-accent-beige mb-3">
                   {project.title}
                 </h3>
-                <p className="text-gray-600 dark:text-gray-300 mb-4 leading-relaxed">
+                <p className="text-main text-sm sm:text-base mb-4 leading-relaxed">
                   {project.description}
                 </p>
 
-                {/* Technologies */}
                 <div className="flex flex-wrap gap-2 mb-4">
                   {project.technologies.map((tech, techIndex) => (
                     <span
                       key={techIndex}
-                      className="px-3 py-1 bg-secondary/10 dark:bg-orange-400/20 text-secondary dark:text-orange-400 rounded-full text-sm font-medium"
+                      className="px-2 sm:px-3 py-1 bg-secondary-blue/15 text-secondary-blue rounded-full text-xs sm:text-sm font-medium"
                     >
                       {tech}
                     </span>
                   ))}
                 </div>
 
-                {/* Links */}
-                <div className="flex gap-4">
+                <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
                   <a
                     href={project.github}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-2 px-4 py-2 bg-primary dark:bg-gray-700 text-white rounded-lg hover:bg-secondary dark:hover:bg-orange-400 transition-colors"
+                    className="flex items-center justify-center gap-2 px-4 py-2 bg-primary text-main text-sm sm:text-base rounded-lg hover:bg-primary-light transition-colors"
                   >
-                    <FaGithub className="h-5 w-5" />
+                    <FaGithub className="h-4 w-4 sm:h-5 sm:w-5" />
                     <span>Code</span>
                   </a>
-                  <button
-                    className="flex items-center gap-2 px-4 py-2 border-2 border-primary dark:border-gray-600 text-primary dark:text-gray-300 rounded-lg hover:bg-primary dark:hover:bg-gray-700 hover:text-white transition-colors"
-                    disabled
+                  <a
+                    href={project.demo}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center justify-center gap-2 px-4 py-2 border-2 border-secondary-blue text-secondary-blue text-sm sm:text-base rounded-lg hover:bg-secondary-blue hover:text-main transition-colors"
                   >
-                    <FaExternalLinkAlt className="h-5 w-5" />
+                    <FaExternalLinkAlt className="h-4 w-4 sm:h-5 sm:w-5" />
                     <span>Démo</span>
-                  </button>
+                  </a>
                 </div>
               </div>
             </motion.div>

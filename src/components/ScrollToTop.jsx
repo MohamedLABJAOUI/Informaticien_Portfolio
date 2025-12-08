@@ -34,7 +34,7 @@ const ScrollToTop = () => {
             smooth={true}
             offset={-80}
             duration={500}
-            className="flex items-center justify-center w-12 h-12 bg-secondary dark:bg-orange-400 text-white rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-110 cursor-pointer"
+            className="flex items-center justify-center w-12 h-12 bg-primary text-main rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-110 cursor-pointer"
             aria-label="Retour en haut"
           >
             <HiArrowUp className="h-6 w-6" />

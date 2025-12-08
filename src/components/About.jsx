@@ -1,62 +1,48 @@
 import React from 'react'
 import { motion } from 'framer-motion'
-import { HiMail, HiPhone, HiLocationMarker } from 'react-icons/hi'
-import { FaGithub } from 'react-icons/fa'
+import { HiAcademicCap } from 'react-icons/hi'
+
+const education = [
+  {
+    year: '2019 – 2020',
+    degree: 'Baccalauréat en Sciences de Gestion Comptable',
+    institution: 'Lycée Charif El Idrissi',
+    location: 'Safi',
+  },
+  {
+    year: '2023 – 2025',
+    degree: 'Diplôme en Informatique et Gestion',
+    institution: 'Fondation Abda',
+    location: 'Safi',
+  },
+  
+]
 
 const About = () => {
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        delayChildren: 0.2,
-        staggerChildren: 0.1,
-      },
-    },
-  }
-
-  const itemVariants = {
-    hidden: { y: 30, opacity: 0 },
-    visible: {
-      y: 0,
-      opacity: 1,
-      transition: { duration: 0.5 },
-    },
-  }
-
-  const infoItems = [
-    {
-      icon: HiMail,
-      label: 'Email',
-      value: 'saadghaloua63@gmail.com',
-      link: 'mailto:saadghaloua63@gmail.com',
-    },
-    {
-      icon: HiPhone,
-      label: 'Téléphone',
-      value: '+212 680-751850',
-      link: 'tel:+212680751850',
-    },
-    {
-      icon: HiLocationMarker,
-      label: 'Localisation',
-      value: 'Safi, Maroc',
-      link: null,
-    },
-    {
-      icon: FaGithub,
-      label: 'GitHub',
-      value: 'SaadGHALOUA',
-      link: 'https://github.com/SaadGHALOUA',
-    },
-  ]
-
   return (
     <section
       id="about"
-      className="py-20 px-4 sm:px-6 lg:px-8 bg-white dark:bg-gray-900"
-    >
-      <div className="max-w-7xl mx-auto">
+      className="py-20 px-4 sm:px-6 lg:px-8 relative overflow-hidden"
+      style={{
+        backgroundImage: `url('/backgroundabout.jpg')`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat',
+      }}
+      >
+      <div
+        style={{
+          position: 'absolute',
+          inset: 0,
+          width: '100%',
+          height: '100%',
+          background: 'rgba(12, 15, 26, 0.76)',
+          backdropFilter: 'blur(2px)',
+          zIndex: 0,
+          pointerEvents: 'none',
+        }}
+      />
+      <div className="max-w-7xl mx-auto relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -64,93 +50,65 @@ const About = () => {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl md:text-5xl font-title font-bold text-primary dark:text-white mb-4">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-title font-bold text-accent-beige mb-7">
             À propos de moi
           </h2>
-          <div className="w-24 h-1 bg-secondary dark:bg-orange-400 mx-auto"></div>
+          <p className="text-base sm:text-lg md:text-xl max-w-3xl mx-auto text-main font-medium mb-12 px-2">
+            Informaticien diplômé en informatique et gestion, motivé, sérieux et passionné par les technologies. Compétences solides en développement web, maintenance informatique, réseaux, bureautique et gestion. Capable d'apprendre rapidement et de m'adapter dans un environnement professionnel.
+          </p>
         </motion.div>
 
-        <div className="grid md:grid-cols-2 gap-12 items-center">
-          {/* Left Content */}
-          <motion.div
-            variants={containerVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-          >
-            <motion.p
-              variants={itemVariants}
-              className="text-lg text-gray-600 dark:text-gray-300 leading-relaxed mb-6"
-            >
-              Informaticien diplômé en informatique et gestion, motivé, sérieux
-              et passionné par les technologies. Compétences solides en
-              développement web, maintenance informatique, réseaux, bureautique et
-              gestion. Capable d'apprendre rapidement et de m'adapter dans un
-              environnement professionnel.
-            </motion.p>
-
-            <motion.div
-              variants={itemVariants}
-              className="space-y-4"
-            >
-              {infoItems.map((item, index) => {
-                const Icon = item.icon
-                return (
-                  <motion.div
-                    key={index}
-                    className="flex items-center gap-4 p-4 rounded-lg bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
-                    whileHover={{ x: 5 }}
-                  >
-                    <div className="flex-shrink-0 w-12 h-12 bg-secondary dark:bg-orange-400 rounded-lg flex items-center justify-center">
-                      <Icon className="h-6 w-6 text-white" />
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="text-center mb-16"
+        >
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-title font-bold text-accent-beige mb-4">
+            Formation
+          </h2>
+          <div className="w-24 h-1 bg-secondary-blue mx-auto mb-8"></div>
+        </motion.div>
+        <div className="max-w-3xl mx-auto">
+          <div className="relative">
+            <div className="absolute left-4 sm:left-8 top-0 bottom-0 w-0.5 bg-secondary-blue"></div>
+            {education.map((edu, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, x: -30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: index * 0.2 }}
+                className="relative pl-12 sm:pl-20 pb-12 last:pb-0"
+              >
+                <div className="absolute left-4 sm:left-6 top-2 w-4 h-4 bg-secondary-blue rounded-full border-4 border-accent-beige"></div>
+                <div className="bg-section rounded-xl p-4 sm:p-6 shadow-lg hover:shadow-xl transition-shadow border border-accent-beige">
+                  <div className="flex flex-col sm:flex-row items-start gap-3 sm:gap-4">
+                    <div className="flex-shrink-0 w-10 h-10 sm:w-12 sm:h-12 bg-secondary-blue rounded-lg flex items-center justify-center">
+                      <HiAcademicCap className="h-5 w-5 sm:h-6 sm:w-6 text-main" />
                     </div>
                     <div className="flex-1">
-                      <p className="text-sm text-gray-500 dark:text-gray-400">
-                        {item.label}
+                      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-2">
+                        <span className="text-secondary-blue text-sm sm:text-base font-semibold">
+                          {edu.year}
+                        </span>
+                      </div>
+                      <h3 className="text-lg sm:text-xl font-title font-semibold text-accent-beige mb-2">
+                        {edu.degree}
+                      </h3>
+                      <p className="text-main text-sm sm:text-base font-medium">
+                        {edu.institution}
                       </p>
-                      {item.link ? (
-                        <a
-                          href={item.link}
-                          target={item.link.startsWith('http') ? '_blank' : undefined}
-                          rel={item.link.startsWith('http') ? 'noopener noreferrer' : undefined}
-                          className="text-text dark:text-gray-200 font-medium hover:text-secondary dark:hover:text-orange-400 transition-colors"
-                        >
-                          {item.value}
-                        </a>
-                      ) : (
-                        <p className="text-text dark:text-gray-200 font-medium">
-                          {item.value}
-                        </p>
-                      )}
+                      <p className="text-accent-beige text-xs sm:text-sm mt-1">
+                        {edu.location}
+                      </p>
                     </div>
-                  </motion.div>
-                )
-              })}
-            </motion.div>
-          </motion.div>
-
-          {/* Right Image */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="flex justify-center"
-          >
-            <div className="relative w-full max-w-md">
-              <div className="absolute inset-0 bg-gradient-to-br from-secondary to-orange-600 rounded-2xl blur-2xl opacity-20"></div>
-              <div className="relative bg-gradient-to-br from-secondary to-orange-600 rounded-2xl p-1">
-                <div className="bg-white dark:bg-gray-800 rounded-2xl p-8">
-                  <div className="aspect-square bg-gray-200 dark:bg-gray-700 rounded-xl flex items-center justify-center">
-                    <div className="text-6xl font-title font-bold text-primary dark:text-white">
-                      GS
-                    </div>
-                    {/* Placeholder for profile image */}
                   </div>
                 </div>
-              </div>
-            </div>
-          </motion.div>
+              </motion.div>
+            ))}
+          </div>
         </div>
       </div>
     </section>

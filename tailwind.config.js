@@ -4,21 +4,28 @@ export default {
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
-  darkMode: 'class',
   theme: {
     extend: {
       colors: {
+        background: {
+          DEFAULT: '#0C0F1A', // Noir bleuté profond
+          section: '#101422', // Gris-noir doux
+        },
         primary: {
-          DEFAULT: '#11131f',
+          DEFAULT: '#6C5CE7', // Violet électrique
+          light: '#A29BFE', // Violet clair néon
         },
         secondary: {
-          DEFAULT: '#e59632',
+          blue: '#00D8FF', // Bleu cyber néon
+          green: '#36F1CD', // Vert aqua lumineux
         },
-        background: {
-          DEFAULT: '#f4f4f4',
+        accent: {
+          gold: '#F8D477', // Or doux premium
+          beige: '#F3ECE0', // Beige ultra-clair
         },
         text: {
-          DEFAULT: '#1a1a1a',
+          main: '#FFFFFF', // Texte principal
+          muted: '#A7B1C4', // Texte secondaire / muted
         },
       },
       fontFamily: {
