@@ -1,10 +1,14 @@
 import React, { useState, useEffect } from 'react'
-import { Link } from 'react-scroll'
+import { useLocation, useNavigate } from 'react-router-dom'
+import { animateScroll as scroll, scroller } from 'react-scroll'
 import { HiMenu, HiX } from 'react-icons/hi'
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
+  const navigate = useNavigate()
+  const location = useLocation()
+  const isHome = location.pathname === '/'
 
   useEffect(() => {
     const handleScroll = () => {
@@ -20,6 +24,28 @@ const Navbar = () => {
     { name: 'Projects', to: 'projects' },
   ]
 
+  const handleNavClick = (target) => {
+    if (!isHome) {
+      navigate('/', { state: { scrollTo: target } })
+    } else {
+      scroller.scrollTo(target, {
+        smooth: true,
+        duration: 500,
+        offset: -80,
+      })
+    }
+    setIsOpen(false)
+  }
+
+  const handleLogoClick = () => {
+    if (!isHome) {
+      navigate('/')
+    } else {
+      scroll.scrollToTop({ duration: 500 })
+    }
+    setIsOpen(false)
+  }
+
   return (
     <nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
@@ -30,13 +56,10 @@ const Navbar = () => {
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
-          <Link
-            to="home"
-            spy={true}
-            smooth={true}
-            offset={-80}
-            duration={500}
+          <button
+            onClick={handleLogoClick}
             className="flex items-center cursor-pointer"
+            aria-label="Revenir à l'accueil"
           >
             <img
               src="/testlogo.png"
@@ -44,22 +67,17 @@ const Navbar = () => {
               className="h-10 w-auto object-contain"
               style={{ maxHeight: '2.5rem' }}
             />
-          </Link>
+          </button>
 
           <div className="hidden md:flex space-x-8">
             {navLinks.map((link) => (
-              <Link
+              <button
                 key={link.to}
-                to={link.to}
-                spy={true}
-                smooth={true}
-                offset={-80}
-                duration={500}
-                activeClass="text-accent-beige"
+                onClick={() => handleNavClick(link.to)}
                 className="text-main hover:text-accent-beige font-medium cursor-pointer transition-colors"
               >
                 {link.name}
-              </Link>
+              </button>
             ))}
           </div>
 
@@ -84,19 +102,13 @@ const Navbar = () => {
       >
         <div className="px-4 pt-2 pb-4 space-y-2 bg-section border-t border-accent-beige">
           {navLinks.map((link) => (
-            <Link
+            <button
               key={link.to}
-              to={link.to}
-              spy={true}
-              smooth={true}
-              offset={-80}
-              duration={500}
-              onClick={() => setIsOpen(false)}
-              activeClass="text-accent-beige bg-section"
-              className="block px-4 py-2 rounded-lg text-main hover:text-accent-beige hover:bg-section transition-colors"
+              onClick={() => handleNavClick(link.to)}
+              className="block w-full text-left px-4 py-2 rounded-lg text-main hover:text-accent-beige hover:bg-section transition-colors"
             >
               {link.name}
-            </Link>
+            </button>
           ))}
         </div>
       </div>

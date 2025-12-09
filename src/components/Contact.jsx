@@ -102,7 +102,7 @@ const Contact = () => {
         
         <section
           id="contact"
-          className="py-20 px-4 sm:px-6 lg:px-8 bg-section min-h-screen"
+          className="py-10 px-4 sm:px-5 lg:px-6 bg-section min-h-screen"
         >
           <div className="max-w-7xl mx-auto">
             <motion.div
@@ -110,30 +110,30 @@ const Contact = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
-              className="text-center mb-16"
+              className="text-center mb-12"
             >
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-title font-bold text-accent-beige mb-4">
+              <h2 className="text-2xl sm:text-3xl font-title font-bold text-accent-beige mb-2">
                 Contactez-moi
               </h2>
-              <div className="w-24 h-1 bg-secondary-blue mx-auto"></div>
-              <p className="text-main text-sm sm:text-base mt-4 max-w-2xl mx-auto px-2">
+              <div className="w-20 h-0.5 bg-secondary-blue mx-auto"></div>
+              <p className="text-main text-xs sm:text-sm mt-2 max-w-md mx-auto px-2">
                 N'hésitez pas à me contacter pour toute question ou opportunité de
                 collaboration.
               </p>
             </motion.div>
 
-            <div className="max-w-2xl mx-auto">
+            <div className="max-w-sm mx-auto">
               <motion.div
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6 }}
               >
-                <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
+                <form onSubmit={handleSubmit} className="space-y-2.5 sm:space-y-3.5">
                   <div>
                     <label
                       htmlFor="name"
-                      className="block text-sm font-medium text-accent-beige mb-2"
+                      className="block text-xs sm:text-sm font-medium text-accent-beige mb-1.5"
                     >
                       Nom
                     </label>
@@ -144,7 +144,7 @@ const Contact = () => {
                       value={formData.name}
                       onChange={handleChange}
                       required
-                      className="w-full px-3 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-base bg-white border border-accent-beige rounded-lg focus:ring-2 focus:ring-secondary-blue focus:border-secondary-blue outline-none transition-colors text-gray-900 placeholder:text-gray-500"
+                      className="w-full px-3 py-2 text-xs sm:text-sm bg-white border border-accent-beige rounded-lg focus:ring-2 focus:ring-secondary-blue focus:border-secondary-blue outline-none transition-colors text-gray-900 placeholder:text-gray-500"
                       placeholder="Votre nom"
                     />
                   </div>
@@ -152,7 +152,7 @@ const Contact = () => {
                   <div>
                     <label
                       htmlFor="email"
-                      className="block text-sm font-medium text-accent-beige mb-2"
+                      className="block text-xs sm:text-sm font-medium text-accent-beige mb-1.5"
                     >
                       Email
                     </label>
@@ -163,7 +163,7 @@ const Contact = () => {
                       value={formData.email}
                       onChange={handleChange}
                       required
-                      className="w-full px-3 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-base bg-white border border-accent-beige rounded-lg focus:ring-2 focus:ring-secondary-blue focus:border-secondary-blue outline-none transition-colors text-gray-900 placeholder:text-gray-500"
+                      className="w-full px-3 py-2 text-xs sm:text-sm bg-white border border-accent-beige rounded-lg focus:ring-2 focus:ring-secondary-blue focus:border-secondary-blue outline-none transition-colors text-gray-900 placeholder:text-gray-500"
                       placeholder="votre.email@example.com"
                     />
                   </div>
@@ -171,7 +171,7 @@ const Contact = () => {
                   <div>
                     <label
                       htmlFor="message"
-                      className="block text-sm font-medium text-accent-beige mb-2"
+                      className="block text-xs sm:text-sm font-medium text-accent-beige mb-1.5"
                     >
                       Message
                     </label>
@@ -182,7 +182,7 @@ const Contact = () => {
                       onChange={handleChange}
                       required
                       rows="5"
-                      className="w-full px-3 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-base bg-white border border-accent-beige rounded-lg focus:ring-2 focus:ring-secondary-blue focus:border-secondary-blue outline-none transition-colors text-gray-900 resize-none placeholder:text-gray-500"
+                      className="w-full px-3 py-2 text-xs sm:text-sm bg-white border border-accent-beige rounded-lg focus:ring-2 focus:ring-secondary-blue focus:border-secondary-blue outline-none transition-colors text-gray-900 resize-none placeholder:text-gray-500"
                       placeholder="Votre message..."
                     ></textarea>
                   </div>
@@ -202,7 +202,7 @@ const Contact = () => {
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="w-full px-6 sm:px-8 py-2.5 sm:py-3 text-sm sm:text-base bg-primary hover:bg-primary-light text-main font-medium rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="w-full px-3.5 py-1.5 text-xs sm:text-sm bg-primary hover:bg-primary-light text-main font-medium rounded-lg shadow-sm hover:shadow-md transition-all duration-300 transform hover:-translate-y-1 disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     {isSubmitting ? 'Envoi en cours...' : 'Envoyer le message'}
                   </button>

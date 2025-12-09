@@ -1,6 +1,6 @@
 import React from 'react'
 import { motion } from 'framer-motion'
-import { Link } from 'react-scroll'
+import { Link as RouterLink } from 'react-router-dom'
 import { HiDownload, HiMail } from 'react-icons/hi'
 
 const Hero = () => {
@@ -106,13 +106,13 @@ const Hero = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.6 }}
             >
-              <a
-                href="/contact"
+              <RouterLink
+                to="/contact"
                 className="inline-flex items-center justify-center px-6 sm:px-8 py-2.5 sm:py-3 bg-primary hover:bg-primary-light text-main text-sm sm:text-base font-medium rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
               >
                 <HiMail className="mr-2 h-4 w-4 sm:h-5 sm:w-5" />
                 Me Contacter
-              </a>
+              </RouterLink>
               <button
                 onClick={handleDownloadCV}
                 className="inline-flex items-center justify-center px-6 sm:px-8 py-2.5 sm:py-3 border-2 border-secondary-blue text-secondary-blue hover:bg-secondary-blue hover:text-main text-sm sm:text-base font-medium rounded-lg transition-all duration-300 transform hover:-translate-y-1"
